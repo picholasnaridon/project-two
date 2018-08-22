@@ -3,6 +3,9 @@ node_js: "8"
 branches:
   only:
   - master
+  -JonM
+  -sus
+  -andybranch
 cache:
   directories:
     - node_modules
