@@ -17,5 +17,13 @@ module.exports = function(sequelize, DataTypes) {
             allowNull: false,
         }
     });
+    Instance.associate = function (models) {
+    models.Instance.belongsTo(models.User, {
+      onDelete: "CASCADE",
+      foreignKey: {
+        allowNull: false
+      }
+    });
+  };
     return Instance;
   };
