@@ -6,13 +6,13 @@ var $exampleList = $("#example-list");
 
 // The API object contains methods for each kind of request we'll make
 var API = {
-  saveExample: function(example) {
+  createMessage: function(example) {
     return $.ajax({
       headers: {
         "Content-Type": "application/json"
       },
       type: "POST",
-      url: "api/examples",
+      url: "api/messages",
       data: JSON.stringify(example)
     });
   },
@@ -64,8 +64,8 @@ var refreshExamples = function() {
 var handleFormSubmit = function(event) {
   event.preventDefault();
 
-  var example = {
-    text: $exampleText.val().trim(),
+  var message = {
+    body: $exampleText.val().trim(),
     description: $exampleDescription.val().trim()
   };
 
