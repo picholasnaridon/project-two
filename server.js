@@ -2,6 +2,8 @@ require("dotenv").config();
 var express = require("express");
 var bodyParser = require("body-parser");
 var exphbs = require("express-handlebars");
+var passport = require("passport");
+var session = require("express-session");
 
 var db = require("./models");
 
@@ -13,6 +15,18 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(express.static("public"));
 
+app.use(
+  session({
+    secret: "keyboard cat",
+    resave: true,
+    saveUninitialized: true
+  })
+); // session secret
+app.use(passport.initialize());
+app.use(passport.session()); // persistent login sessions
+
+require("./config/passport/passport.js")(passport, db.user);
+
 // Handlebars
 app.engine(
   "handlebars",
@@ -21,8 +35,10 @@ app.engine(
   })
 );
 app.set("view engine", "handlebars");
+app.set("views", "./views");
 
 // Routes
+require("./routes/authRoutes.js")(app, passport);
 require("./routes/apiRoutes")(app);
 require("./routes/htmlRoutes")(app);
 
