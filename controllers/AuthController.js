@@ -12,8 +12,7 @@ module.exports = {
     res.render("user");
   },
   logout: function(req, res) {
-    req.session.destroy(function(err) {
-      // eslint-disable-line no-unused-vars
+    req.session.destroy(function() {
       res.redirect("/");
     });
   }
