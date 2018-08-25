@@ -1,13 +1,16 @@
+//load bcrypt
 var bCrypt = require("bcrypt-nodejs");
+var models = require("../../models");
 
 module.exports = function(passport, user) {
-  var User = user;
+  var User = models.User;
   var LocalStrategy = require("passport-local").Strategy;
 
   passport.serializeUser(function(user, done) {
     done(null, user.id);
   });
 
+  // used to deserialize the user
   passport.deserializeUser(function(id, done) {
     User.findById(id).then(function(user) {
       if (user) {
@@ -19,11 +22,12 @@ module.exports = function(passport, user) {
   });
 
   passport.use(
+    "local-signup",
     new LocalStrategy(
       {
         usernameField: "email",
         passwordField: "password",
-        passReqToCallback: true
+        passReqToCallback: true // allows us to pass back the entire request to the callback
       },
 
       function(req, email, password, done) {
@@ -45,7 +49,7 @@ module.exports = function(passport, user) {
               lastname: req.body.lastname
             };
 
-            User.create(data).then(function(newUser, created) {
+            User.create(data).then(function(newUser) {
               if (!newUser) {
                 return done(null, false);
               }
@@ -65,13 +69,14 @@ module.exports = function(passport, user) {
     "local-signin",
     new LocalStrategy(
       {
+        // by default, local strategy uses username and password, we will override with email
         usernameField: "email",
         passwordField: "password",
-        passReqToCallback: true
+        passReqToCallback: true // allows us to pass back the entire request to the callback
       },
 
       function(req, email, password, done) {
-        var User = user;
+        var User = models.User;
 
         var isValidPassword = function(userpass, password) {
           return bCrypt.compareSync(password, userpass);
