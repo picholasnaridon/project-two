@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="https://fonts.googleapis.com/css?family=Abril+Fatface|Fjalla+One|Sacramento" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" media="screen" href="style.css">
+    <script src="main.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <title>Step 1:</title>
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row" id="heading">
+            <div class="col"><a href="index.html"> <img id="pic" src="images/saveTheDate.png"> </a> </div>
+        </div>
+        <div class="row" id="form">
+            <div class="col-sm-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h3>Welcome to our Save the Date app!</h3>
+                        <br>
+                        <p>To begin, fill in the following information: </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="card">
+                    <div class="card-body">
+                        <form>
+                            <div class="form-group">
+                                <label for="name">Name</label>
+                                <input type="name" class="form-control" id="startName">
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Email</label>
+                                <input type="email" class="form-control" id="startEmail">
+                            </div>
+                            <div class="form-group">
+                                <label for="phone">Phone Number</label>
+                                <input type="number" class="form-control" id="startPhone">
+                            </div>
+                            <div class="form-group">
+                                <label for="date">Date</label>
+                                <input type="date" class="form-control" id="startDate">
+                            </div>
+                            <div class="form-group">
+                                <label for="time">Time</label>
+                                <input type="time" class="form-control" id="startTime">
+                            </div>
+                            <div class="form-group">
+                                <label for="message">Message to be sent</label>
+                                <textarea class="form-control" id="startMessage" rows="3"></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-primary" id="startSubmit">Submit</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Confrim Your Info</h5>
+                </div>
+                <div class="modal-body">
+                    <div>Name:
+                        <div id="modalName"></div>
+                    </div>
+                    <div>Email:
+                        <div id="modalEmail"></div>
+                    </div>
+                    <div>Date:
+                        <div id="modalDate"></div>
+                    </div>
+                    <div>Time:
+                        <div id="modalTime"></div>
+                    </div>
+                    <div>Message:
+                        <div id="modalMessage"></div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <small>Are you sure this is what you want?</small>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal" id="modalYes">Yes</button>
+                    <button type="button" class="btn btn-primary" id="modalNo">No</button>
+                </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col" id="footer2"></div>
+        </div>
+    </div>
+    <script>
+        $(document).ready(function() {
+            $(".modal").hide();
+        });
+    
+        $("#startSubmit").on("click", function(event) {
+            event.preventDefault();
+            $(".modal").show();
+        });
+
+        $("#modalNo").on("click",function() {
+            $(".modal").hide();
+        });
+    </script>
+</body>
+</html>
