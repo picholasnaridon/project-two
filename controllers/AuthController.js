@@ -1,4 +1,4 @@
-const models = require("../models");// eslint-disable-line no-unused-vars
+const models = require("../models"); // eslint-disable-line no-unused-vars
 
 module.exports = {
   //BASE ROUTES
@@ -12,7 +12,8 @@ module.exports = {
     res.render("user");
   },
   logout: function(req, res) {
-    req.session.destroy(function(err) {// eslint-disable-line no-unused-vars
+    req.session.destroy(function(err) {
+      // eslint-disable-line no-unused-vars
       res.redirect("/");
     });
   }
