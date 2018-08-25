@@ -1,4 +1,4 @@
-const models = require("../models");
+const models = require("../models"); // eslint-disable-line no-unused-vars
 
 module.exports = {
   //BASE ROUTES
