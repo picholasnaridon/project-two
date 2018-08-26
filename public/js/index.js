@@ -15,10 +15,11 @@ var API = {
       data: JSON.stringify(message)
     });
   },
-  getExamples: function() {
+  getMessages: function(id) {
     return $.ajax({
       url: "api/messages",
-      type: "GET"
+      type: "GET",
+      data: JSON.stringify(id)
     });
   },
   deleteExample: function(id) {
