@@ -2,7 +2,7 @@
 var $submitBtn = $("#startSubmit");
 var $messageBody = $("#startMessage");
 var loggedInUserId = 1;//"1" is just a testing placeholder, in production will come from the login process
-
+var messageList = [];
 // The API object contains methods for each kind of request we'll make
 var API = {
   createMessage: function(message) {
@@ -56,7 +56,7 @@ var handleFormSubmit = function(event) {
   }
 
   API.createMessage(message).then(function() {
-    refreshExamples();
+    refreshMessages();
   });
 
   $messageBody.val("");
@@ -65,6 +65,35 @@ var handleFormSubmit = function(event) {
 
   
 };
+
+var refreshMessages = function() {
+  API.getMessages(loggedInUserId).then(function(data) {
+    var $messages = data.map(function(message) {
+      var $a = $("<a>")
+        .text(message.text)
+        .attr("href", "/example/" + message.id);
+
+      var $li = $("<li>")
+        .attr({
+          class: "list-group-item",
+          "data-id": message.id
+        })
+        .append($a);
+
+      var $button = $("<button>")
+        .addClass("btn btn-danger float-right delete")
+        .text("ｘ");
+
+      $li.append($button);
+
+      return $li;
+    });
+
+    $exampleList.empty();
+    $exampleList.append($examples);
+  });
+};
+
 
 // Add event listeners to the submit and delete buttons
 $submitBtn.on("click", handleFormSubmit);

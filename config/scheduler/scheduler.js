@@ -30,9 +30,9 @@ schedule.scheduleJob("10 * * * * *", function() {
         attributes: ['phone']
       }).then(returnedNum => {
         console.log(returnedNum.phone);
-        sendMessage(messageToSend, returnedNum.phone, cb => {
-          console.log(cb);
-        })
+        // sendMessage(messageToSend, returnedNum.phone, cb => {
+        //   console.log(cb);
+        // })
       })
     });
   });
