@@ -2,12 +2,11 @@ var db = require("../models");
 
 module.exports = function(app) {
   // Get all examples
-  app.get("/api/messages", function(req, res) {
-    console.log(req.body)
-    db.Message.findAll({}).then(result => {
-      console.log(result)
-    })
- 
+  app.get("/api/messages/:id", function(req, res) {
+    
+    db.Example.findAll({}).then(function(dbExamples) {
+      res.json(dbExamples);
+    });
   });
 
   // Create a new example
