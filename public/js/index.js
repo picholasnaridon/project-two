@@ -67,9 +67,10 @@ var handleFormSubmit = function(event) {
 
 var refreshMessages = function() {
   API.getMessages(loggedInUserId).then(function(data) {
+    console.log(data)
     var $messages = data.map(function(message) {
       var $a = $("<a>")
-        .text(message.text)
+        .text(`${message.body} to be sent at: ${message.sendTime}`)
         .attr("href", "/example/" + message.id);
 
       var $li = $("<li>")
@@ -88,8 +89,8 @@ var refreshMessages = function() {
       return $li;
     });
 
-    $exampleList.empty();
-    $exampleList.append($examples);
+    $("#message-list").empty();
+    $("#message-list").append($messages);
   });
 };
 
