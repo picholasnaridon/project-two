@@ -1,6 +1,7 @@
 // Get references to page elements
 var $submitBtn = $("#startSubmit");
 var $messageBody = $("#startMessage");
+var loggedInUserId = 1;//"1" is just a testing placeholder, in production will come from the login process
 
 // The API object contains methods for each kind of request we'll make
 var API = {
@@ -44,7 +45,8 @@ var handleFormSubmit = function(event) {
 
   var message = {
     body: newMessageBody,
-    sendTime: newSendTime
+    sendTime: newSendTime,
+    UserId: loggedInUserId
   };
 
   if (!(message.body && message.sendTime)) {

@@ -14,7 +14,7 @@ module.exports = function(app) {
     db.Message.create({
       body: req.body.body,
       sendTime: req.body.sendTime,
-      UserId: 1
+      UserId: req.body.UserId
     }).then(result => {
       console.log("message submitted");
       res.json(result);
