@@ -1,47 +1,93 @@
 // Get references to page elements
-var $exampleText = $("#example-text");
-var $exampleDescription = $("#example-description");
-var $submitBtn = $("#submit");
-var $exampleList = $("#example-list");
+var $submitBtn = $("#startSubmit");
+var $messageBody = $("#startMessage");
+var loggedInUserId = 1;//"1" is just a testing placeholder, in production will come from the login process
+var messageList = [];
+
+$(document).ready(() => {
+  refreshMessages();
+});
 
 // The API object contains methods for each kind of request we'll make
 var API = {
-  saveExample: function(example) {
+  createMessage: function(message) {
     return $.ajax({
       headers: {
         "Content-Type": "application/json"
       },
       type: "POST",
-      url: "api/examples",
-      data: JSON.stringify(example)
+      url: "api/messages",
+      data: JSON.stringify(message)
     });
   },
-  getExamples: function() {
+  getMessages: function() {
     return $.ajax({
-      url: "api/examples",
+      url: "api/messages/" + loggedInUserId,
       type: "GET"
     });
   },
-  deleteExample: function(id) {
+  deleteMessage: function(id) {
     return $.ajax({
-      url: "api/examples/" + id,
+      url: "api/messages/" + id,
       type: "DELETE"
+    });
+  },
+  getHistory: function(){
+    return $.ajax({
+      url:"api/history/" + loggedInUserId,
+      type: "GET"
     });
   }
 };
 
-// refreshExamples gets new examples from the db and repopulates the list
-var refreshExamples = function() {
-  API.getExamples().then(function(data) {
-    var $examples = data.map(function(example) {
+
+// handleFormSubmit is called whenever we submit a new example
+// Save the new example to the db and refresh the list
+var handleFormSubmit = function(event) {
+  event.preventDefault();
+
+  if($messageBody.val().trim() != ""){
+    var newMessageBody = $messageBody.val().trim();
+  }else{
+    alert("Please enter a message to be sent");
+  }
+  
+  var newSendTime = $("#startDate").val() + " " + $("#startTime").val() + ":00.000"
+
+  var message = {
+    body: newMessageBody,
+    sendTime: newSendTime,
+    UserId: loggedInUserId
+  };
+
+  if (!(message.body && message.sendTime)) {
+    alert("You must enter an example text and description!");
+    return;
+  }
+
+  API.createMessage(message).then(function() {
+    refreshMessages();
+  });
+
+  $messageBody.val("");
+  $("#startTime").val("");
+  $("#startDate").val("");
+
+  
+};
+
+var refreshMessages = function() {
+  API.getMessages().then(function(data) {
+    console.log(data)
+    var $messages = data.map(function(message) {
       var $a = $("<a>")
-        .text(example.text)
-        .attr("href", "/example/" + example.id);
+        .text(`${message.body} to be sent at: ${message.sendTime}`)
+        .attr("href", "/example/" + message.id);
 
       var $li = $("<li>")
         .attr({
           class: "list-group-item",
-          "data-id": example.id
+          "data-id": message.id
         })
         .append($a);
 
@@ -54,46 +100,46 @@ var refreshExamples = function() {
       return $li;
     });
 
-    $exampleList.empty();
-    $exampleList.append($examples);
+    $("#message-list").empty();
+    $("#message-list").append($messages);
   });
 };
 
-// handleFormSubmit is called whenever we submit a new example
-// Save the new example to the db and refresh the list
-var handleFormSubmit = function(event) {
-  event.preventDefault();
-
-  var example = {
-    text: $exampleText.val().trim(),
-    description: $exampleDescription.val().trim()
-  };
-
-  if (!(example.text && example.description)) {
-    alert("You must enter an example text and description!");
-    return;
-  }
-
-  API.saveExample(example).then(function() {
-    refreshExamples();
-  });
-
-  $exampleText.val("");
-  $exampleDescription.val("");
-};
-
-// handleDeleteBtnClick is called when an example's delete button is clicked
-// Remove the example from the db and refresh the list
-var handleDeleteBtnClick = function() {
-  var idToDelete = $(this)
-    .parent()
-    .attr("data-id");
-
-  API.deleteExample(idToDelete).then(function() {
-    refreshExamples();
-  });
-};
 
 // Add event listeners to the submit and delete buttons
 $submitBtn.on("click", handleFormSubmit);
-$exampleList.on("click", ".delete", handleDeleteBtnClick);
+
+
+  $("#message-list").on("click", ".delete", function(e){
+    e.preventDefault();
+    var deleteId = $(this).closest("li").attr("data-id");
+
+    API.deleteMessage(deleteId).then( returned => {
+      refreshMessages();
+    })
+  });
+//code for when we have history implemented//
+var loadHistory = function() {
+  API.getHistory().then(response => {
+    var $history = response.map(message =>{
+      var $a = $("<a>")
+        .text(`${message.body} originally sent at: ${message.sendTime}`)
+        .attr("href", "/example/" + message.id);
+
+      var $li = $("<li>")
+        .attr({
+          class: "list-group-item",
+          "data-id": message.id
+        })
+        .append($a);
+
+      var $button = $("<button>")
+        .addClass("btn btn-danger float-right delete")
+        .text("ｘ");
+
+      $li.append($button);
+
+      return $li;
+    })
+  });
+}
