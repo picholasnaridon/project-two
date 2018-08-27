@@ -5,16 +5,16 @@ var models = require("../../models");
 
 var sendMessage = function(sentBody, toNum, cb) {
   console.log("send message");
-    twilio.messages
-      .create({
-        body: sentBody,
-        //our twilio number, will always be this number
-        from: "+19203358585",
-        to: toNum
-      })
-      .then(message => cb(message.sid))
+//     twilio.messages
+//       .create({
+//         body: sentBody,
+//         //our twilio number, will always be this number
+//         from: "+19203358585",
+//         to: toNum
+//       })
+//       .then(message => cb(message.sid))
 
-      .done();
+//       .done();
 };
 
 schedule.scheduleJob("10 * * * * *", function() {

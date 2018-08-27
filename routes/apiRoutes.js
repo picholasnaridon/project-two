@@ -4,10 +4,25 @@ module.exports = function(app) {
   // Get all examples
   app.get("/api/messages/:id", function(req, res) {
     console.log("get running");
-    var targetId = req.params.id;
-    db.Message.findAll({where: {UserId: targetId}}).then(function(messages) {
+    db.Message.findAll({
+      where: {
+        //sent: false,   //for when we have this functionality implemented, for showing currently active messages list
+        UserId: req.params.id
+      }
+    
+    }).then(function(messages) {
       console.log(messages)
       res.json(messages);
+    });
+  });
+
+  app.get("/api/history/:id", function(req, res) {
+    db.Message.findAll({
+      where: {
+        UserId: req.params.id
+      }
+    }).then(response => {
+      res.json(response);
     });
   });
 
@@ -21,15 +36,13 @@ module.exports = function(app) {
     }).then(result => {
       console.log("message submitted");
       res.json(result);
-    })
+    });
   });
 
-//   // Delete an example by id
-//   app.delete("/api/examples/:id", function(req, res) {
-//     db.Example.destroy({ where: { id: req.params.id } }).then(function(
-//       dbExample
-//     ) {
-//       res.json(dbExample);
-//     });
-//   });
+  // Delete an example by id
+  app.delete("/api/messages/:id", function(req, res) {
+    db.Message.destroy({ where: { id: req.params.id } }).then( response => {
+      res.json(response);
+    });
+  });
 };

@@ -3,6 +3,11 @@ var $submitBtn = $("#startSubmit");
 var $messageBody = $("#startMessage");
 var loggedInUserId = 1;//"1" is just a testing placeholder, in production will come from the login process
 var messageList = [];
+
+$(document).ready(() => {
+  refreshMessages();
+});
+
 // The API object contains methods for each kind of request we'll make
 var API = {
   createMessage: function(message) {
@@ -21,10 +26,16 @@ var API = {
       type: "GET"
     });
   },
-  deleteExample: function(id) {
+  deleteMessage: function(id) {
     return $.ajax({
       url: "api/messages/" + id,
       type: "DELETE"
+    });
+  },
+  getHistory: function(){
+    return $.ajax({
+      url:"api/history/" + loggedInUserId,
+      type: "GET"
     });
   }
 };
@@ -66,7 +77,7 @@ var handleFormSubmit = function(event) {
 };
 
 var refreshMessages = function() {
-  API.getMessages(loggedInUserId).then(function(data) {
+  API.getMessages().then(function(data) {
     console.log(data)
     var $messages = data.map(function(message) {
       var $a = $("<a>")
@@ -98,3 +109,37 @@ var refreshMessages = function() {
 // Add event listeners to the submit and delete buttons
 $submitBtn.on("click", handleFormSubmit);
 
+
+  $("#message-list").on("click", ".delete", function(e){
+    e.preventDefault();
+    var deleteId = $(this).closest("li").attr("data-id");
+
+    API.deleteMessage(deleteId).then( returned => {
+      refreshMessages();
+    })
+  });
+//code for when we have history implemented//
+var loadHistory = function() {
+  API.getHistory().then(response => {
+    var $history = response.map(message =>{
+      var $a = $("<a>")
+        .text(`${message.body} originally sent at: ${message.sendTime}`)
+        .attr("href", "/example/" + message.id);
+
+      var $li = $("<li>")
+        .attr({
+          class: "list-group-item",
+          "data-id": message.id
+        })
+        .append($a);
+
+      var $button = $("<button>")
+        .addClass("btn btn-danger float-right delete")
+        .text("ｘ");
+
+      $li.append($button);
+
+      return $li;
+    })
+  });
+}
