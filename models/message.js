@@ -10,6 +10,11 @@ module.exports = function(sequelize, DataTypes) {
     sendTime: {
       type: DataTypes.DATE,
       allowNull: false
+    },
+    sent: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false,
+      allowNull: false
     }
   });
 

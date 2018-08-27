@@ -19,11 +19,10 @@
             </div>
             <button type="submit" class="btn btn-primary" id="startSubmit">Submit</button>
          </form>
-        <h3>Examples:</h3>
+        <h3>Your Messages:</h3>
         <ul id="message-list" class="list-group">
           {{#each messages}}
           <li data-id="{{this.id}}" class="list-group-item">
-            <a href="example/{{this.id}}">{{this.text}}</a>
             <button class="btn btn-danger float-right delete">ｘ</button>
           </li>
           {{/each}}
