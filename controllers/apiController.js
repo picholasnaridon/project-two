@@ -1,0 +1,44 @@
+const models = require("../models"); // eslint-disable-line no-unused-vars
+
+module.exports = {
+  currentMessages: function(req, res) {
+    console.log("get running");
+    models.Message.findAll({
+      where: {
+        //sent: false,   //for when we have this functionality implemented, for showing currently active messages list
+        UserId: req.params.id
+      }
+    }).then(function(messages) {
+      console.log(messages);
+      res.json(messages);
+    });
+  },
+
+  getHistory: function(req, res) {
+    models.Message.findAll({
+      where: {
+        UserId: req.params.id
+      }
+    }).then(response => {
+      res.json(response);
+    });
+  },
+
+  newMessage: function(req, res) {
+    console.log(req.body);
+    models.Message.create({
+      body: req.body.body,
+      sendTime: req.body.sendTime,
+      UserId: req.body.UserId
+    }).then(result => {
+      console.log("message submitted");
+      res.json(result);
+    });
+  },
+
+  deleteMessage: function(req, res) {
+    models.Message.destroy({ where: { id: req.params.id } }).then(response => {
+      res.json(response);
+    });
+  }
+};
