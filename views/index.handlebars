@@ -1,37 +1,15 @@
-<div id="home">
-  <div class="container">
-    <div class="row">
-      <div class="col-8 offset-2">
-        <h1>{{msg}}</h1>
-        <h2>This is our Home Page!</h2>
-        <form>
-            <div class="form-group">
-                <label for="date">Date</label>
-                <input type="date" class="form-control" id="startDate">
-            </div>
-            <div class="form-group">
-                  <label for="time">Time</label>
-                <input type="time" class="form-control" id="startTime">
-            </div>
-            <div class="form-group">
-                <label for="message">Message to be sent</label>
-                <textarea class="form-control" id="startMessage" rows="3"></textarea>
-            </div>
-            <button type="submit" class="btn btn-primary" id="startSubmit">Submit</button>
-         </form>
-        <h3>Your Messages:</h3>
-        <ul id="message-list" class="list-group">
-          {{#each messages}}
-          <li data-id="{{this.id}}" class="list-group-item">
-            <button class="btn btn-danger float-right delete">ｘ</button>
-          </li>
-          {{/each}}
-        </ul>
-      </div>
-    </div>
-  </div>
-</div>
+<h1>Welcome! Please Sign in!</h1>
+<form id="signup" name="signup" method="post" action="/signup">
+  <label for="email">Email Address</label>
+  <input class="text" name="email" type="email" />
+  <label for="firstname">Firstname</label>
+  <input name="firstname" type="text" />
+  <label for="lastname">Lastname</label>
+  <input name="lastname" type="text" />
+  <label for="password">Password</label>
+  <input name="password" type="password" />
+  <input class="btn" type="submit" value="Sign Up" />
+</form>
 
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<script src="/js/index.js"></script>
-
+<div>Already have an account?</div>
+<a href="/signin">Login</a>
