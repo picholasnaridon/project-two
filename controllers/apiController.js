@@ -6,7 +6,7 @@ module.exports = {
     models.Message.findAll({
       where: {
         //sent: false,   //for when we have this functionality implemented, for showing currently active messages list
-        UserId: req.params.id
+        UserId: req.user.id
       }
     }).then(function(messages) {
       console.log(messages);
@@ -17,7 +17,7 @@ module.exports = {
   getHistory: function(req, res) {
     models.Message.findAll({
       where: {
-        UserId: req.params.id
+        UserId: req.user.id
       }
     }).then(response => {
       res.json(response);
