@@ -1,6 +1,6 @@
 const apiController = require("../controllers/apiController.js");
 
-module.exports = function(app, passport) {
+module.exports = function(app) {
   // Get all current messages for a user
   app.get("/api/messages/:id", apiController.currentMessages);
   // Get all messages for a user
