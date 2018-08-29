@@ -137,14 +137,24 @@ $("#message-list").on("click", ".delete", function(e){
 
 $("#message-list").on("click", ".update", function(e){
   e.preventDefault();
+  $("#updateDiv").modal({ show: true});
   var updateId = $(this).closest("li").attr("data-id");
-  var message = {
-    body: "ringo ringo"
-  };
+  
+  $("#update-submit").on("click", function(e){
+    e.preventDefault();  
 
-  API.updateMessage(updateId, message).then(function(){
-    refreshMessages();
+    var message = {
+      body: $("#update-input").val().trim()
+    };
+
+    API.updateMessage(updateId, message).then(function(){
+      refreshMessages();
+    }).then(() => {
+      $("#updateDiv").fadeOut(450);
+      $("#updateDiv").modal("hide");
+    });
   });
+
 });
 
 //code for when we have history implemented//
