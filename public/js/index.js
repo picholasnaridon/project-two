@@ -78,7 +78,16 @@ var handleFormSubmit = function(event) {
 
 var refreshMessages = function() {
   API.getMessages().then(function(data) {
-    console.log(data)
+
+    if(data.length === 0){
+      var $messages = function(){
+        var $h2 = $("<h2>")
+        .text(`Looks like you don't have any messages to be sent. Why not add one now?`)
+
+      return $h2;
+      }
+    }else{
+
     var $messages = data.map(function(message) {
       var $a = $("<a>")
         .text(`${message.body} to be sent at: ${message.sendTime}`)
@@ -99,10 +108,12 @@ var refreshMessages = function() {
 
       return $li;
     });
-
+  }
     $("#message-list").empty();
     $("#message-list").append($messages);
+
   });
+  
 };
 
 
