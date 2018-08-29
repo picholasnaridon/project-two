@@ -32,6 +32,16 @@ var API = {
       type: "DELETE"
     });
   },
+  updateMessage: function(id, messageUpdate){
+    return $.ajax({
+      headers: {
+        "Content-Type": "application/json"
+      },
+      type: "PUT",
+      url: "api/update/" + id,
+      data: JSON.stringify(messageUpdate)
+    }); 
+  },
   getHistory: function(){
     return $.ajax({
       url:"api/history/" + loggedInUserId,
@@ -91,11 +101,15 @@ var refreshMessages = function() {
         })
         .append($a);
 
-      var $button = $("<button>")
+      var $delButton = $("<button>")
         .addClass("btn btn-danger float-right delete")
         .text("ｘ");
 
-      $li.append($button);
+      var $updButton = $("<button>")
+        .addClass("btn btn-success mr-2 float-right update")
+        .text("Edit");
+
+      $li.append($delButton, $updButton);
 
       return $li;
     });
@@ -110,14 +124,29 @@ var refreshMessages = function() {
 $submitBtn.on("click", handleFormSubmit);
 
 
-  $("#message-list").on("click", ".delete", function(e){
-    e.preventDefault();
-    var deleteId = $(this).closest("li").attr("data-id");
+$("#message-list").on("click", ".delete", function(e){
+  e.preventDefault();
+  var deleteId = $(this).closest("li").attr("data-id");
 
-    API.deleteMessage(deleteId).then( returned => {
-      refreshMessages();
-    })
+  API.deleteMessage(deleteId).then( returned => {
+    refreshMessages();
   });
+});
+
+//event listeners for update function
+
+$("#message-list").on("click", ".update", function(e){
+  e.preventDefault();
+  var updateId = $(this).closest("li").attr("data-id");
+  var message = {
+    body: "ringo ringo"
+  };
+
+  API.updateMessage(updateId, message).then(function(){
+    refreshMessages();
+  });
+});
+
 //code for when we have history implemented//
 var loadHistory = function() {
   API.getHistory().then(response => {
@@ -133,11 +162,11 @@ var loadHistory = function() {
         })
         .append($a);
 
-      var $button = $("<button>")
-        .addClass("btn btn-danger float-right delete")
+      var $delButton = $("<button>")
+        .addClass("btn btn-danger float-right jizz")
         .text("ｘ");
 
-      $li.append($button);
+      $li.append($delButton);
 
       return $li;
     })
