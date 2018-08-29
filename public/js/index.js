@@ -163,7 +163,22 @@ $("#message-list").on("click", ".update", function(e){
       })
     });
   });
+});
 
+//close model on clicking x button//
+
+$("#modal-close").on("click", (e) => {
+  let fade = new Promise((res, rej) =>{
+    res($("#updateDiv").fadeOut(450));
+   });
+
+   fade.then(() => {
+     function closeModal(){
+       $("#updateDiv").modal("hide");
+     };
+  
+     setTimeout(closeModal, 400)
+   });
 });
 
 //code for when we have history implemented//
