@@ -5,8 +5,8 @@ module.exports = {
     console.log("get running");
     models.Message.findAll({
       where: {
-        //sent: false,   //for when we have this functionality implemented, for showing currently active messages list
-        UserId: req.user.id
+        UserId: req.user.id,
+        sent: false
       }
     }).then(function(messages) {
       console.log(messages);
