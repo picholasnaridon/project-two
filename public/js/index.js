@@ -150,8 +150,17 @@ $("#message-list").on("click", ".update", function(e){
     API.updateMessage(updateId, message).then(function(){
       refreshMessages();
     }).then(() => {
-      $("#updateDiv").fadeOut(450);
-      $("#updateDiv").modal("hide");
+      let fade = new Promise((res, rej) =>{
+       res($("#updateDiv").fadeOut(450));
+      });
+      
+      fade.then(() => {
+        function closeModal(){
+          $("#updateDiv").modal("hide");
+        };
+
+        setTimeout(closeModal, 400)
+      })
     });
   });
 
