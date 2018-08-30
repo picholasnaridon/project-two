@@ -17,7 +17,7 @@ var sendMessage = function(sentBody, toNum, cb) {
   //   .done();
 };
 
-schedule.scheduleJob("30 * * * * *", function() {
+schedule.scheduleJob("10 * * * * *", function() {
   console.log("running on 30");
   ///var currentChron = "";  need to get a time stamp to match the database sendTime value (format: 2018-08-27 15:48:37)
   models.Message.findAll({}).then(function(results) {
