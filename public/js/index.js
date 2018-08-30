@@ -48,6 +48,12 @@ var API = {
       url: "api/history/" + loggedInUserId,
       type: "GET"
     });
+  },
+  profile: function(){
+    return $.ajax({
+      url: "user/",
+      type: "GET"
+    });
   }
 };
 
@@ -221,3 +227,9 @@ flatpickr("#sendTime", {
   enableTime: true,
   minDate: new Date()
 });
+
+///eventListener for profile button click
+$("#profile-btn").on("click", (e) => {
+  // e.preventDefault();
+  API.profile()
+})
