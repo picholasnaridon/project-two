@@ -1,7 +1,7 @@
 // Get references to page elements
 var $submitBtn = $("#startSubmit");
 var $messageBody = $("#startMessage");
-var loggedInUserId = 1;//"1" is just a testing placeholder, in production will come from the login process
+var loggedInUserId = 1; //"1" is just a testing placeholder, in production will come from the login process
 var messageList = [];
 
 $(document).ready(() => {
@@ -11,6 +11,7 @@ $(document).ready(() => {
 // The API object contains methods for each kind of request we'll make
 var API = {
   createMessage: function(message) {
+    console.log(message);
     return $.ajax({
       headers: {
         "Content-Type": "application/json"
@@ -32,7 +33,7 @@ var API = {
       type: "DELETE"
     });
   },
-  updateMessage: function(id, messageUpdate){
+  updateMessage: function(id, messageUpdate) {
     return $.ajax({
       headers: {
         "Content-Type": "application/json"
@@ -40,30 +41,27 @@ var API = {
       type: "PUT",
       url: "api/update/" + id,
       data: JSON.stringify(messageUpdate)
-    }); 
+    });
   },
-  getHistory: function(){
+  getHistory: function() {
     return $.ajax({
-      url:"api/history/" + loggedInUserId,
+      url: "api/history/" + loggedInUserId,
       type: "GET"
     });
   }
 };
-
 
 // handleFormSubmit is called whenever we submit a new example
 // Save the new example to the db and refresh the list
 var handleFormSubmit = function(event) {
   event.preventDefault();
 
-  if($messageBody.val().trim() != ""){
+  if ($messageBody.val().trim() != "") {
     var newMessageBody = $messageBody.val().trim();
-  }else{
+  } else {
     alert("Please enter a message to be sent");
   }
-  
-  var newSendTime = $("#startDate").val() + " " + $("#startTime").val() + ":00.000"
-
+  var newSendTime = $("#sendTime").val();
   var message = {
     body: newMessageBody,
     sendTime: newSendTime,
@@ -82,120 +80,121 @@ var handleFormSubmit = function(event) {
   $messageBody.val("");
   $("#startTime").val("");
   $("#startDate").val("");
-
-  
 };
 
 var refreshMessages = function() {
   API.getMessages().then(function(data) {
+    if (data.length === 0) {
+      var $messages = function() {
+        var $h2 = $("<h2>").text(
+          `Looks like you don't have any messages to be sent. Why not add one now?`
+        );
 
-    if(data.length === 0){
-      var $messages = function(){
-        var $h2 = $("<h2>")
-        .text(`Looks like you don't have any messages to be sent. Why not add one now?`)
+        return $h2;
+      };
+    } else {
+      var $messages = data.map(function(message) {
+        var $a = $("<a>")
+          .text(`${message.body} to be sent at: ${message.sendTime}`)
+          .attr("href", "/example/" + message.id);
 
-      return $h2;
-      }
-    }else{
+        var $li = $("<li>")
+          .attr({
+            class: "list-group-item",
+            "data-id": message.id
+          })
+          .append($a);
 
-    var $messages = data.map(function(message) {
-      var $a = $("<a>")
-        .text(`${message.body} to be sent at: ${message.sendTime}`)
-        .attr("href", "/example/" + message.id);
+        var $delButton = $("<button>")
+          .addClass("btn btn-danger float-right delete")
+          .text("ｘ");
 
-      var $li = $("<li>")
-        .attr({
-          class: "list-group-item",
-          "data-id": message.id
-        })
-        .append($a);
+        var $updButton = $("<button>")
+          .addClass("btn btn-success mr-2 float-right update")
+          .text("Edit");
 
-      var $delButton = $("<button>")
-        .addClass("btn btn-danger float-right delete")
-        .text("ｘ");
+        $li.append($delButton, $updButton);
 
-      var $updButton = $("<button>")
-        .addClass("btn btn-success mr-2 float-right update")
-        .text("Edit");
-
-      $li.append($delButton, $updButton);
-
-      return $li;
-    });
-  }
+        return $li;
+      });
+    }
     $("#message-list").empty();
     $("#message-list").append($messages);
-
   });
-  
 };
-
 
 // Add event listeners to the submit and delete buttons
 $submitBtn.on("click", handleFormSubmit);
 
-
-$("#message-list").on("click", ".delete", function(e){
+$("#message-list").on("click", ".delete", function(e) {
   e.preventDefault();
-  var deleteId = $(this).closest("li").attr("data-id");
+  var deleteId = $(this)
+    .closest("li")
+    .attr("data-id");
 
-  API.deleteMessage(deleteId).then( returned => {
+  API.deleteMessage(deleteId).then(returned => {
     refreshMessages();
   });
 });
 
 //event listeners for update function
 
-$("#message-list").on("click", ".update", function(e){
+$("#message-list").on("click", ".update", function(e) {
   e.preventDefault();
-  $("#updateDiv").modal({ show: true});
-  var updateId = $(this).closest("li").attr("data-id");
-  
-  $("#update-submit").on("click", function(e){
-    e.preventDefault();  
+  $("#updateDiv").modal({ show: true });
+  var updateId = $(this)
+    .closest("li")
+    .attr("data-id");
+
+  $("#update-submit").on("click", function(e) {
+    e.preventDefault();
 
     var message = {
-      body: $("#update-input").val().trim()
+      body: $("#update-input")
+        .val()
+        .trim()
     };
 
-    API.updateMessage(updateId, message).then(function(){
-      refreshMessages();
-    }).then(() => {
-      let fade = new Promise((res, rej) =>{
-       res($("#updateDiv").fadeOut(450));
-      });
-      
-      fade.then(() => {
-        function closeModal(){
-          $("#updateDiv").modal("hide");
-        };
-
-        setTimeout(closeModal, 400)
+    API.updateMessage(updateId, message)
+      .then(function() {
+        refreshMessages();
       })
-    });
+      .then(() => {
+        let fade = new Promise((res, rej) => {
+          res($("#updateDiv").fadeOut(450));
+        });
+
+        fade.then(() => {
+          function closeModal() {
+            $("#updateDiv").modal("hide");
+          }
+
+          setTimeout(closeModal, 400);
+        });
+      });
   });
 });
 
 //close model on clicking x button//
 
-$("#modal-close").on("click", (e) => {
-  let fade = new Promise((res, rej) =>{
+$("#modal-close").on("click", e => {
+  let fade = new Promise((res, rej) => {
     res($("#updateDiv").fadeOut(450));
-   });
+  });
 
-   fade.then(() => {
-     function closeModal(){
-       $("#updateDiv").modal("hide");
-     };
-  
-     setTimeout(closeModal, 400)
-   });
+  fade.then(() => {
+    function closeModal() {
+      $("#updateDiv").modal("hide");
+    }
+
+    setTimeout(closeModal, 400);
+  });
 });
 
 //code for when we have history implemented//
 var loadHistory = function() {
   API.getHistory().then(response => {
-    var $history = response.map(message =>{
+    var $history = response.map(message => {
       var $a = $("<a>")
         .text(`${message.body} originally sent at: ${message.sendTime}`)
         .attr("href", "/example/" + message.id);
@@ -214,6 +213,11 @@ var loadHistory = function() {
       $li.append($delButton);
 
       return $li;
-    })
+    });
   });
-}
+};
+flatpickr("#sendTime", {
+  altInput: true,
+  enableTime: true,
+  minDate: new Date()
+});
