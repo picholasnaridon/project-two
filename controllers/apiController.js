@@ -28,7 +28,7 @@ module.exports = {
     console.log(req.body);
     models.Message.create({
       body: req.body.body,
-      sendTime: req.body.sendTime,
+      sendTime: Date.parse(req.body.sendTime),
       UserId: req.body.UserId
     }).then(result => {
       console.log("message submitted");
