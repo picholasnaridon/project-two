@@ -1,7 +1,7 @@
 // Get references to page elements
 var $submitBtn = $("#startSubmit");
 var $messageBody = $("#startMessage");
-var loggedInUserId = 1; //"1" is just a testing placeholder, in production will come from the login process
+var loggedInUserId = 1;//"1" is just a testing placeholder, in production will come from the login process
 var messageList = [];
 
 $(document).ready(() => {
@@ -44,24 +44,25 @@ var API = {
   },
   getHistory: function(){
     return $.ajax({
-      url: "api/history/" + loggedInUserId,
+      url:"api/history/" + loggedInUserId,
       type: "GET"
     });
   }
 };
+
 
 // handleFormSubmit is called whenever we submit a new example
 // Save the new example to the db and refresh the list
 var handleFormSubmit = function(event) {
   event.preventDefault();
 
-  if ($messageBody.val().trim() != "") {
+  if($messageBody.val().trim() != ""){
     var newMessageBody = $messageBody.val().trim();
-  } else {
+  }else{
     alert("Please enter a message to be sent");
   }
-
-  var newSendTime = $("#sendTime").val();
+  
+  var newSendTime = $("#startDate").val() + " " + $("#startTime").val() + ":00.000"
 
   var message = {
     body: newMessageBody,
@@ -79,12 +80,15 @@ var handleFormSubmit = function(event) {
   });
 
   $messageBody.val("");
-  $("#sendTime").val("");
-  $(".flatpickr-input form-control input active").val("");
+  $("#startTime").val("");
+  $("#startDate").val("");
+
+  
 };
 
 var refreshMessages = function() {
   API.getMessages().then(function(data) {
+
     if(data.length === 0){
       var $messages = function(){
         var $h2 = $("<h2>")
@@ -93,6 +97,7 @@ var refreshMessages = function() {
       return $h2;
       }
     }else{
+
     var $messages = data.map(function(message) {
       var $a = $("<a>")
         .text(`${message.body} to be sent at: ${message.sendTime}`)
@@ -125,14 +130,9 @@ var refreshMessages = function() {
   
 };
 
+
 // Add event listeners to the submit and delete buttons
 $submitBtn.on("click", handleFormSubmit);
-
-$("#message-list").on("click", ".delete", function(e) {
-  e.preventDefault();
-  var deleteId = $(this)
-    .closest("li")
-    .attr("data-id");
 
 
 $("#message-list").on("click", ".delete", function(e){
@@ -195,7 +195,7 @@ $("#modal-close").on("click", (e) => {
 //code for when we have history implemented//
 var loadHistory = function() {
   API.getHistory().then(response => {
-    var $history = response.map(message => {
+    var $history = response.map(message =>{
       var $a = $("<a>")
         .text(`${message.body} originally sent at: ${message.sendTime}`)
         .attr("href", "/example/" + message.id);
@@ -214,6 +214,6 @@ var loadHistory = function() {
       $li.append($delButton);
 
       return $li;
-    });
+    })
   });
-};
+}
