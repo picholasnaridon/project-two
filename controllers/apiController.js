@@ -37,7 +37,7 @@ module.exports = {
   },
 
   updateMessage: function(req, res) {
-    models.Message.update (
+    models.Message.update(
       {
         body: req.body.body
       },
