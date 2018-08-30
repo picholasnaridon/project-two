@@ -1,2 +1,13 @@
 <h2>Your Profile</h2>
 <h3>{{user.firstname}} {{user.lastname}}</h3>
+
+<ul>Profile information</ul>
+    <li>{{user.email}}</li>
+    <li>{{user.phone}}</li>
+    <li>Member since: {{user.createdAt}}</li>
+
+
+<ul>Message History</ul>
+    {{#each user.Messages}}
+        <li>{{this.body}}</li>
+    {{/each }}

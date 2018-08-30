@@ -17,8 +17,10 @@ module.exports = {
       models.User.findAll({
         where: {
           id: req.user.id
-        }
+        },
+        include: [models.Message]
       }).then((returned) => {
+        console.log(returned[0]["Messages"])
         res.render("user", { user: returned[0] })
       });
     }
