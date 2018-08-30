@@ -36,6 +36,20 @@ module.exports = {
     });
   },
 
+  updateMessage: function(req, res) {
+    models.Message.update(
+      {
+        body: req.body.body
+      },
+      {
+        where: { id: req.params.id }
+      }
+    ).then(result => {
+      console.log(`message ${req.params.id} updated`);
+      res.json(result);
+    });
+  },
+
   deleteMessage: function(req, res) {
     models.Message.destroy({ where: { id: req.params.id } }).then(response => {
       res.json(response);
