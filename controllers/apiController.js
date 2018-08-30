@@ -29,7 +29,7 @@ module.exports = {
     models.Message.create({
       body: req.body.body,
       sendTime: Date.parse(req.body.sendTime),
-      UserId: req.body.UserId
+      UserId: req.user.id
     }).then(result => {
       console.log("message submitted");
       res.json(result);

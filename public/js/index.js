@@ -70,8 +70,7 @@ var handleFormSubmit = function(event) {
   var newSendTime = $("#sendTime").val();
   var message = {
     body: newMessageBody,
-    sendTime: newSendTime,
-    UserId: loggedInUserId
+    sendTime: newSendTime
   };
 
   if (!(message.body && message.sendTime)) {

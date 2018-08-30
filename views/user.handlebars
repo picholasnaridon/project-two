@@ -1,13 +1,17 @@
 <h2>Your Profile</h2>
 <h3>{{user.firstname}} {{user.lastname}}</h3>
 
-<ul>Profile information</ul>
-    <li>{{user.email}}</li>
-    <li>{{user.phone}}</li>
-    <li>Member since: {{user.createdAt}}</li>
+<h4>Profile information</h4>
+    <h5>{{user.email}}</h5>
+    <h5>{{user.phone}}</h5>
+    <h5>Member since: {{user.createdAt}}</h5>
 
 
-<ul>Message History</ul>
+<h4>Message History</h4>
     {{#each user.Messages}}
-        <li>{{this.body}}</li>
+        <div class="bg-secondary m-3">
+            <h5>{{this.body}}<h5>
+            <h5>sent on: {{this.sendTime}}</h5>
+            <div class="btn btn-warning" data-id={{this.id}}>Resend</div>
+        </div>
     {{/each }}
