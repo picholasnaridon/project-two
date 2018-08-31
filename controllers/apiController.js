@@ -54,5 +54,24 @@ module.exports = {
     models.Message.destroy({ where: { id: req.params.id } }).then(response => {
       res.json(response);
     });
+  },
+
+  resendMessage: function(req, res){
+    console.log("resend controller running")
+    console.log(req.body)
+    models.Message.update(
+      {
+        sendTime: req.body.newTime,
+        sent: false
+      },
+      {
+        where: {
+          id: req.params.id
+        }
+    }).then((result => {
+      console.log(result);
+      res.json(result);
+      })
+    );
   }
 };

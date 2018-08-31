@@ -8,15 +8,18 @@
 
 
 <h4>Message History</h4>
-    {{#each user.Messages}}
-        <div id="message-history" class="bg-secondary m-3">
-            <h5>{{this.body}}<h5>
-            <h5>sent on: {{this.sendTime}}</h5>
-            <div id="resend-btn" class="btn btn-warning resend" data-id={{this.id}}>Resend</div>
-        </div>
-    {{/each }}
+    <div id="history-list">   
 
-
+        {{#each user.Messages}}
+            <div id="message-history" class="bg-secondary m-3">
+                <h5>{{this.body}}<h5>
+                <h5>sent on: {{this.sendTime}}</h5>
+                <div id="resend-btn" class="btn btn-warning resend" data-id={{this.id}}>Resend</div>
+            </div>
+        {{/each }}
+        
+    </div>
+    <a href="/messages">Return to message center</a>
      <div class="modal" id="resendDiv">
          <div class="modal-dialog">
             <div class="modal-content">
@@ -26,8 +29,9 @@
                 </div>
                         <!--End modal header-->
                 <div class="modal-body">
-                    <input type="text" id="update-input"></input>
-                    <button type="submit" id="resend-submit" class="btn btn-primary">Save</button>
+                    <h5>Enter a new send time below</h5>
+                    <input id="sendTime" name="sendTime">
+                    <button type="submit" id="resend-submit" class="btn btn-primary">Resend</button>
                 </div>
                         <!--End modal body-->
             </div>
@@ -35,6 +39,7 @@
         </div>
                 <!--End modal-dialog-->
     </div>
+
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
