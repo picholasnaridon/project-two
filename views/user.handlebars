@@ -9,9 +9,35 @@
 
 <h4>Message History</h4>
     {{#each user.Messages}}
-        <div class="bg-secondary m-3">
+        <div id="message-history" class="bg-secondary m-3">
             <h5>{{this.body}}<h5>
             <h5>sent on: {{this.sendTime}}</h5>
-            <div class="btn btn-warning" data-id={{this.id}}>Resend</div>
+            <div id="resend-btn" class="btn btn-warning resend" data-id={{this.id}}>Resend</div>
         </div>
     {{/each }}
+
+
+     <div class="modal" id="resendDiv">
+         <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 class="modal-title"><i class="fas fa-exclamation"></i>Resend you Message!</h2>
+                    <div id="modal-close" class="btn btn-danger">X</div>
+                </div>
+                        <!--End modal header-->
+                <div class="modal-body">
+                    <input type="text" id="update-input"></input>
+                    <button type="submit" id="resend-submit" class="btn btn-primary">Save</button>
+                </div>
+                        <!--End modal body-->
+            </div>
+                    <!--End modal content-->
+        </div>
+                <!--End modal-dialog-->
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+    crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script src="/js/profile.js"></script>

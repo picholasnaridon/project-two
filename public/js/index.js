@@ -1,7 +1,7 @@
 // Get references to page elements
 var $submitBtn = $("#startSubmit");
 var $messageBody = $("#startMessage");
-var loggedInUserId = 1; //"1" is just a testing placeholder, in production will come from the login process
+// var loggedInUserId = 1; //"1" is just a testing placeholder, in production will come from the login process
 var messageList = [];
 
 $(document).ready(() => {
@@ -23,7 +23,7 @@ var API = {
   },
   getMessages: function() {
     return $.ajax({
-      url: "api/messages/" + loggedInUserId,
+      url: "api/messages/",
       type: "GET"
     });
   },
@@ -45,7 +45,7 @@ var API = {
   },
   getHistory: function() {
     return $.ajax({
-      url: "api/history/" + loggedInUserId,
+      url: "api/history/",
       type: "GET"
     });
   },
