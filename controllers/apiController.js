@@ -76,14 +76,15 @@ module.exports = {
   },
 
   profilepic: function(req, res) {
-    models.User.update({
-      profilepic: req.body.profilepic
-    },
-    {
-      where: {
-      id: req.user.id
-    }
-  }
+    models.User.update(
+      {
+        profilepic: req.body.profilepic
+      },
+      {
+        where: {
+          id: req.user.id
+        }
+      }
   ).then(result => {
       res.end();
     });
