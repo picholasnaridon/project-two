@@ -69,10 +69,9 @@ module.exports = {
           id: req.params.id
         }
       }
-      ).then(result => {
+    ).then(result => {
       console.log(result);
       res.json(result);
-      }
-    );
+    });
   }
 };
