@@ -76,8 +76,6 @@ module.exports = {
   },
 
   profilepic: function(req, res) {
-    console.log("profilepic update run")
-    console.log(req.body)
     models.User.update({
       profilepic: req.body.profilepic
     },
