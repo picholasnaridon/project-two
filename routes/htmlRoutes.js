@@ -7,7 +7,7 @@ module.exports = function(app) {
     if (req.isAuthenticated()) {
       return next();
     }
-    
+
     res.redirect("/signin");
   }
   app.get("/user", htmlController.profile);

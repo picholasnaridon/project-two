@@ -18,10 +18,9 @@ module.exports = {
         id: req.user.id
       },
       include: [models.Message]
-      }).then((returned) => {
-      console.log(returned[0]["Messages"])
-      res.render("user", { user: returned[0] })
+    }).then(returned => {
+      // console.log(returned[0].Messages);
+      res.render("user", { user: returned[0] });
     });
   }
-  
 };
