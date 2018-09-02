@@ -40,7 +40,7 @@ module.exports = function(sequelize, Sequelize) {
     profilepic: {
       type: Sequelize.STRING,
       allowNull: false,
-      defaultValue: 
+      defaultValue:
         "http://mainenordmenn.com/wp-content/uploads/2017/09/Maine-Nordmenn-Board-Generic-Profile.jpg"
     }
   });
