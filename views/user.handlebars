@@ -1,10 +1,19 @@
 <h2>Your Profile</h2>
-<h3>{{user.firstname}} {{user.lastname}}</h3>
-
-<h4>Profile information</h4>
-    <h5>{{user.email}}</h5>
-    <h5>{{user.phone}}</h5>
-    <h5>Member since: {{user.createdAt}}</h5>
+<div class="card" style="width: 18rem;">
+  <img class="card-img-top" src={{user.profilepic}} alt="Card image cap">
+  <div class="card-body">
+    <h5 class="card-title">{{user.firstname}} {{user.lastname}}</h5>
+  </div>
+  <ul class="list-group list-group-flush">
+    <li class="list-group-item">Email: {{user.email}}</li>
+    <li class="list-group-item">Phone {{user.phone}}</li>
+    <li class="list-group-item">Member since: {{user.createdAt}}</li>
+  </ul>
+  <div class="card-body">
+    <a href="/messages" class="card-link">Return to Message Center</a>
+    <a href="#" id="profilepic-update" class="card-link">Add/Update Profile Pic</a>
+  </div>
+</div>
 
 
 <h4>Message History</h4>
@@ -19,7 +28,7 @@
         {{/each }}
         
     </div>
-    <a href="/messages">Return to message center</a>
+    
      <div class="modal" id="resendDiv">
          <div class="modal-dialog">
             <div class="modal-content">
@@ -32,6 +41,26 @@
                     <h5>Enter a new send time below</h5>
                     <input id="sendTime" name="sendTime">
                     <button type="submit" id="resend-submit" class="btn btn-primary">Resend</button>
+                </div>
+                        <!--End modal body-->
+            </div>
+                    <!--End modal content-->
+        </div>
+                <!--End modal-dialog-->
+    </div>
+
+     <div class="modal" id="profilepicDiv">
+         <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 class="modal-title"><i class="fas fa-exclamation"></i>Resend you Message!</h2>
+                    <div id="modal-close-pic" class="btn btn-danger">X</div>
+                </div>
+                        <!--End modal header-->
+                <div class="modal-body">
+                    <h5>Enter an image url here</h5>
+                    <input id="profilepic-input" name="profilepic" placeholder="https://i.imgur.com/example.jpg">
+                    <button type="submit" id="profilepic-submit" class="btn btn-primary">Submit</button>
                 </div>
                         <!--End modal body-->
             </div>

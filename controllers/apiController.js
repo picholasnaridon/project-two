@@ -73,5 +73,21 @@ module.exports = {
       console.log(result);
       res.json(result);
     });
+  },
+
+  profilepic: function(req, res) {
+    console.log("profilepic update run")
+    console.log(req.body)
+    models.User.update({
+      profilepic: req.body.profilepic
+    },
+    {
+      where: {
+      id: req.user.id
+    }
+  }
+  ).then(result => {
+      res.end();
+    });
   }
 };

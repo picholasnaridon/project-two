@@ -35,7 +35,14 @@ module.exports = function(sequelize, Sequelize) {
     status: {
       type: Sequelize.ENUM("active", "inactive"),
       defaultValue: "active"
+    },
+
+    profilepic: {
+      type: Sequelize.STRING,
+      allowNull: false,
+      defaultValue: "http://mainenordmenn.com/wp-content/uploads/2017/09/Maine-Nordmenn-Board-Generic-Profile.jpg"
     }
+
   });
 
   User.associate = function(models) {
