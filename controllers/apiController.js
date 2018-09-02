@@ -56,9 +56,9 @@ module.exports = {
     });
   },
 
-  resendMessage: function(req, res){
-    console.log("resend controller running")
-    console.log(req.body)
+  resendMessage: function(req, res) {
+    console.log("resend controller running");
+    console.log(req.body);
     models.Message.update(
       {
         sendTime: req.body.newTime,
@@ -68,7 +68,8 @@ module.exports = {
         where: {
           id: req.params.id
         }
-    }).then((result => {
+      }
+        ).then((result => {
       console.log(result);
       res.json(result);
       })
