@@ -85,7 +85,8 @@ module.exports = {
           id: req.user.id
         }
       }
-  ).then(result => {
+    ).then(result => {
+      console.log(result)
       res.end();
     });
   }
