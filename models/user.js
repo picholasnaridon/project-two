@@ -42,6 +42,7 @@ module.exports = function(sequelize, Sequelize) {
       allowNull: false,
       defaultValue: "http://mainenordmenn.com/wp-content/uploads/2017/09/Maine-Nordmenn-Board-Generic-Profile.jpg"
     }
+    
   });
 
   User.associate = function(models) {
