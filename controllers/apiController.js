@@ -29,7 +29,7 @@ module.exports = {
     models.Message.create({
       body: req.body.body,
       sendTime: Date.parse(req.body.sendTime),
-      UserId: req.body.UserId
+      UserId: req.user.id
     }).then(result => {
       console.log("message submitted");
       res.json(result);
@@ -53,6 +53,25 @@ module.exports = {
   deleteMessage: function(req, res) {
     models.Message.destroy({ where: { id: req.params.id } }).then(response => {
       res.json(response);
+    });
+  },
+
+  resendMessage: function(req, res) {
+    console.log("resend controller running");
+    console.log(req.body);
+    models.Message.update(
+      {
+        sendTime: req.body.newTime,
+        sent: false
+      },
+      {
+        where: {
+          id: req.params.id
+        }
+      }
+    ).then(result => {
+      console.log(result);
+      res.json(result);
     });
   }
 };

@@ -10,4 +10,5 @@ module.exports = function(app) {
 
     res.redirect("/signin");
   }
+  app.get("/user", htmlController.profile);
 };

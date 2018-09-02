@@ -1,7 +1,7 @@
 // Get references to page elements
 var $submitBtn = $("#startSubmit");
 var $messageBody = $("#startMessage");
-var loggedInUserId = 1; //"1" is just a testing placeholder, in production will come from the login process
+// var loggedInUserId = 1; //"1" is just a testing placeholder, in production will come from the login process
 var messageList = [];
 
 $(document).ready(() => {
@@ -23,7 +23,7 @@ var API = {
   },
   getMessages: function() {
     return $.ajax({
-      url: "api/messages/" + loggedInUserId,
+      url: "api/messages/",
       type: "GET"
     });
   },
@@ -45,7 +45,13 @@ var API = {
   },
   getHistory: function() {
     return $.ajax({
-      url: "api/history/" + loggedInUserId,
+      url: "api/history/",
+      type: "GET"
+    });
+  },
+  profile: function(){
+    return $.ajax({
+      url: "user/",
       type: "GET"
     });
   }
@@ -64,8 +70,7 @@ var handleFormSubmit = function(event) {
   var newSendTime = $("#sendTime").val();
   var message = {
     body: newMessageBody,
-    sendTime: newSendTime,
-    UserId: loggedInUserId
+    sendTime: newSendTime
   };
 
   if (!(message.body && message.sendTime)) {
@@ -221,3 +226,9 @@ flatpickr("#sendTime", {
   enableTime: true,
   minDate: new Date()
 });
+
+///eventListener for profile button click
+$("#profile-btn").on("click", (e) => {
+  // e.preventDefault();
+  API.profile()
+})
