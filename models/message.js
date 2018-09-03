@@ -1,3 +1,5 @@
+var moment = require("moment");
+
 module.exports = function(sequelize, DataTypes) {
   var Message = sequelize.define("Message", {
     body: {
@@ -18,6 +20,9 @@ module.exports = function(sequelize, DataTypes) {
     }
   });
 
+  Message.prototype.unixTime = function() {
+    return moment(this.sendTime).unix();
+  };
   Message.associate = function(models) {
     models.Message.belongsTo(models.User, {
       foreignKey: {
