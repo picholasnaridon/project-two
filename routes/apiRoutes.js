@@ -12,6 +12,7 @@ module.exports = function(app) {
   //update time and send status for resend message from profile history//
   app.put("/api/resend/:id", apiController.resendMessage);
   app.put("/api/profilepic", apiController.profilepic);
+  app.put("/api/profileupdate", apiController.profileUpdate);
   // Delete an example by id
   app.delete("/api/messages/:id", apiController.deleteMessage);
 };

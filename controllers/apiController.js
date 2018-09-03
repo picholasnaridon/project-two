@@ -88,6 +88,25 @@ module.exports = {
     ).then(result => {
       console.log(result);
       res.end();
-    });
+    }); 
+  },
+
+  profileUpdate: function(req, res){
+    console.log("profileUpdate running")
+    console.log(req.body);
+    // var colName = req.body.set
+    models.User.update(
+      {
+        [req.body.set]: req.body.body
+      },
+      {
+        where: {
+          id: req.user.id
+        }
+      }
+    ).then(result => {
+      console.log("update complete");
+      res.end();
+    })
   }
 };

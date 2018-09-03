@@ -14,7 +14,15 @@ var API = {
             type: "PUT",
             data: data
         });
-    } 
+    },
+    infoUpdate: function(data){
+        console.log("infoupdate running")
+        return $.ajax({
+            url: "api/profileupdate",
+            type: "PUT",
+            data: data
+        });
+    }
 }
 
 ////update function////
@@ -121,6 +129,60 @@ $("#profilepic-update").on("click", function(e){
     });
 });
 
+//update profile-info//
+
+$(".list-group-item").on("click", function(){
+    var colName = $(this).attr("id");
+    if(!colName){
+        return;
+    }
+
+    $("#profileinfoDiv").modal({ show: true });
+
+    $("#profileinfo-submit").on("click", function(e){
+        e.preventDefault();
+
+        var newVal = $("#profileinfo-input").val().trim();
+        if(newVal !== ""){
+
+            var newUpdate = {
+                body: newVal,
+                set: colName
+            };
+
+            API.infoUpdate(newUpdate).then(() => {
+                let fade = new Promise((res, rej) => {
+                    res($("#profileinfoDiv").fadeOut(450));
+                });
+        
+                fade.then(() => {
+                    function closeModal() {
+                    $("#profileinfoDiv").modal("hide");
+                };
+        
+                setTimeout(closeModal, 400);
+                });
+
+                location.reload();
+            });
+        }else{
+            alert("Please enter a your new information.")
+        }
+    });
+    $("#modal-close-info").on("click", e => {
+        let fade = new Promise((res, rej) => {
+          res($("#profileinfoDiv").fadeOut(450));
+        });
+      
+        fade.then(() => {
+          function closeModal() {
+            $("#profileinfoDiv").modal("hide");
+          };
+      
+          setTimeout(closeModal, 400);
+        });
+    });
+});
 
 
 flatpickr("#sendTime", {
