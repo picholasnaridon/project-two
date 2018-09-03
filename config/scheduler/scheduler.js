@@ -8,7 +8,7 @@ var sendMessage = function(sentBody, toNum, messageId) {
   twilio.messages
     .create({
       body: sentBody,
-      from: "+19203358585",
+      from: "+16105699239",
       to: `+1${toNum}`
     })
     .then(function() {
@@ -26,7 +26,7 @@ var sendMessage = function(sentBody, toNum, messageId) {
     .done();
 };
 
-schedule.scheduleJob("30 * * * * *", function() {
+schedule.scheduleJob("15 * * * * *", function() {
   var currentUnix = moment().unix();
   console.log(currentUnix);
   models.Message.findAll({
