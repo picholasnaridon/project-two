@@ -49,7 +49,7 @@ var API = {
       type: "GET"
     });
   },
-  profile: function(){
+  profile: function() {
     return $.ajax({
       url: "user/",
       type: "GET"
@@ -100,7 +100,12 @@ var refreshMessages = function() {
     } else {
       var $messages = data.map(function(message) {
         var $a = $("<a>")
-          .text(`${message.body} to be sent at: ${message.sendTime}`)
+          .text(
+            `${message.body} to be sent at: ${moment(
+              message.sendTime,
+              "YYYY-MM-DD HH:mm Z"
+            )}`
+          )
           .attr("href", "/example/" + message.id);
 
         var $li = $("<li>")
@@ -224,11 +229,12 @@ var loadHistory = function() {
 flatpickr("#sendTime", {
   altInput: true,
   enableTime: true,
-  minDate: new Date()
+  minDate: new Date(),
+  minuteIncrement: 5
 });
 
 ///eventListener for profile button click
-$("#profile-btn").on("click", (e) => {
+$("#profile-btn").on("click", e => {
   // e.preventDefault();
-  API.profile()
-})
+  API.profile();
+});
