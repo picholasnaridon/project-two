@@ -88,11 +88,11 @@ module.exports = {
     ).then(result => {
       console.log(result);
       res.end();
-    }); 
+    });
   },
 
-  profileUpdate: function(req, res){
-    console.log("profileUpdate running")
+  profileUpdate: function(req, res) {
+    console.log("profileUpdate running");
     console.log(req.body);
     // var colName = req.body.set
     models.User.update(
@@ -104,9 +104,9 @@ module.exports = {
           id: req.user.id
         }
       }
-    ).then(result => {
+    ).then(() => {
       console.log("update complete");
       res.end();
-    })
+    });
   }
 };
