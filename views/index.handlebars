@@ -1,21 +1,23 @@
-<h1>Welcome! Please Sign in!</h1>
-<form id="signup" name="signup" method="post" action="/signup">
-  <label for="email">Email Address</label>
-  <input class="text" name="email" type="email" />
-  <label for="phone">Phone</label>
-  <input name="phone" type="text" />
-  <br>
-  <label for="firstname">Firstname</label>
-  <input name="firstname" type="text" />
-  <label for="lastname">Lastname</label>
-  <input name="lastname" type="text" />
-  <br>
-  <label for="password">Password</label>
-  <input name="password" type="password" />
-  <br>
+<div class="container">
+  <h1>Welcome! Please Sign in!</h1>
+    <form id="signup" name="signup" method="post" action="/signup">
+      <label for="email">Email Address</label>
+      <input class="text" name="email" type="email" />
+      <label for="phone">Phone</label>
+      <input name="phone" type="text" />
+      <br>
+      <label for="firstname">Firstname</label>
+      <input name="firstname" type="text" />
+      <label for="lastname">Lastname</label>
+      <input name="lastname" type="text" />
+      <br>
+      <label for="password">Password</label>
+      <input name="password" type="password" />
+      <br>
 
-  <input class="btn" type="submit" value="Sign Up" />
-</form>
+      <input class="btn" type="submit" value="Sign Up" />
+    </form>
 
-<div>Already have an account?</div>
-<a href="/signin">Login</a>
+  <div>Already have an account?</div>
+  <a href="/signin">Login</a>
+</div>

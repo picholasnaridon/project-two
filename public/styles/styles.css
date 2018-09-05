@@ -10,6 +10,10 @@ body {
   background-color: rgb(24, 50, 100);
 }
 
+#container {
+  margin: auto;
+}
+
 #wrapper {
   width: 960px;
   margin: 1em, auto;
