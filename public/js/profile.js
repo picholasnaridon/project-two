@@ -165,6 +165,8 @@ $(".list-group-item").on("click", function(){
 
                 location.reload();
             });
+
+            
         }else{
             alert("Please enter a your new information.")
         }
