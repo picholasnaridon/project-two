@@ -5,11 +5,12 @@
     <h5 class="card-title">{{user.firstname}} {{user.lastname}}</h5>
   </div>
   <ul class="list-group list-group-flush">
-    <li class="list-group-item">Email: {{user.email}}</li>
-    <li class="list-group-item">Phone {{user.phone}}</li>
+    <li id="email" class="list-group-item">Email: {{user.email}}</li>
+    <li id="phone" class="list-group-item">Phone: {{user.phone}}</li>
     <li class="list-group-item">Member since: {{user.createdAt}}</li>
   </ul>
   <div class="card-body">
+      <p>click profile information elements to edit.</p>
     <a href="/messages" class="card-link">Return to Message Center</a>
     <a href="#" id="profilepic-update" class="card-link">Add/Update Profile Pic</a>
   </div>
@@ -49,7 +50,7 @@
                 <!--End modal-dialog-->
     </div>
 
-     <div class="modal" id="profilepicDiv">
+    <div class="modal" id="profilepicDiv">
          <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -61,6 +62,26 @@
                     <h5>Enter an image url here</h5>
                     <input id="profilepic-input" name="profilepic" placeholder="https://i.imgur.com/example.jpg">
                     <button type="submit" id="profilepic-submit" class="btn btn-primary">Submit</button>
+                </div>
+                        <!--End modal body-->
+            </div>
+                    <!--End modal content-->
+        </div>
+                <!--End modal-dialog-->
+    </div>
+
+    <div class="modal" id="profileinfoDiv">
+         <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 class="modal-title"><i class="fas fa-exclamation"></i>Update Your Information</h2>
+                    <div id="modal-close-info" class="btn btn-danger">X</div>
+                </div>
+                        <!--End modal header-->
+                <div class="modal-body">
+                    <h5>Enter new email/phone number here</h5>
+                    <input id="profileinfo-input" name="profileinfo">
+                    <button type="submit" id="profileinfo-submit" class="btn btn-primary">Submit</button>
                 </div>
                         <!--End modal body-->
             </div>
