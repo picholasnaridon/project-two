@@ -5,25 +5,29 @@ var moment = require("moment");
 
 var sendMessage = function(sentBody, toNum, messageId) {
   console.log("send message");
-//   twilio.messages
-//     .create({
-//       body: sentBody,
-//       from: "+19203358585",
-//       to: `+1${toNum}`
-//     })
-//     .then(function() {
-//       models.Message.update(
-//         { sent: true },
-//         {
-//           where: {
-//             id: messageId
-//           }
-//         }
-//       ).then(function() {
-//         console.log("Updated Messages to sent");
-//       });
-//     })
-//     .done();
+  twilio.messages.create(
+    {
+      body: "sentBody",
+      from: "+16105699239",
+      to: `+1${toNum}`
+    },
+    function(err, message) {
+      if (err) {
+        console.log("err sending message", err);
+      } else {
+        models.Message.update(
+          { sent: true },
+          {
+            where: {
+              id: messageId
+            }
+          }
+        ).then(function() {
+          console.log("Updated Messages to sent");
+        });
+      }
+    }
+  );
 };
 
 schedule.scheduleJob("15 * * * * *", function() {
@@ -36,7 +40,8 @@ schedule.scheduleJob("15 * * * * *", function() {
     include: [{ model: models.User }]
   }).then(function(messages) {
     return messages.forEach(message => {
-      if (currentUnix - message.unixTime() <= 60) {
+      console.log(message.unixTime());
+      if (currentUnix - message.unixTime() >= 60) {
         console.log("message Sent");
         sendMessage(message.body, message.User.phone, message.id);
       }
