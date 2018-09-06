@@ -5,7 +5,7 @@ module.exports = {
   index: function(req, res) {
     res.render("index");
   },
-  
+
   home: function(req, res) {
     res.render("home");
   },
