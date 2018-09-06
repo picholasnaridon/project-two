@@ -5,6 +5,11 @@ module.exports = {
   index: function(req, res) {
     res.render("index");
   },
+
+  home: function(req, res) {
+    res.render("home");
+  },
+
   messages: function(req, res) {
     models.Message.findAll({
       where: { UserId: req.user.id }
