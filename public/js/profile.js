@@ -108,10 +108,10 @@ $("#profilepic-update").on("click", function(e){
                         });
 
             }else{
-                alert("Please enter a valid address (must be '.jpg'")
+                alertify.alert("Please enter a valid address (must be '.jpg'").set('frameless', true);
             }
         }else{
-            alert("Please enter an image url")
+            alertify.alert("Please enter an image url").set('frameless', true);
         };
     });
     $("#modal-close-pic").on("click", e => {
@@ -168,7 +168,7 @@ $(".list-group-item").on("click", function(){
 
             
         }else{
-            alert("Please enter a your new information.")
+            alertify.alert("Please enter a your new information.")
         }
     });
     $("#modal-close-info").on("click", e => {
