@@ -2,6 +2,9 @@ const models = require("../models"); // eslint-disable-line no-unused-vars
 
 module.exports = {
   //BASE ROUTES
+  home: function(req, res) {
+    res.render("home");
+  },
   signin: function(req, res) {
     res.render("signIn");
   },

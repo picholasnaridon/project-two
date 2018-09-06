@@ -1,6 +1,7 @@
 var htmlController = require("../controllers/htmlcontroller");
 module.exports = function(app) {
   app.get("/", htmlController.index);
+  app.get("/home", htmlController.home);
   app.get("/messages", isLoggedIn, htmlController.messages);
 
   function isLoggedIn(req, res, next) {
