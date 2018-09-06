@@ -7,8 +7,8 @@ var sendMessage = function(sentBody, toNum, messageId) {
   console.log("send message");
   twilio.messages.create(
     {
-      body: "sentBody",
-      from: "+16105699239",
+      body: sentBody,
+      from: "+19203358585", // +16105699239
       to: `+1${toNum}`
     },
     function(err, message) {
