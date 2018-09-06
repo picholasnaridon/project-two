@@ -6,7 +6,7 @@ module.exports = {
     res.render("signIn");
   },
   signup: function(req, res) {
-    res.render("signUp");
+    res.render("index");
   },
   dashboard: function(req, res) {
     res.render("user");

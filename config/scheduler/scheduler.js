@@ -5,25 +5,25 @@ var moment = require("moment");
 
 var sendMessage = function(sentBody, toNum, messageId) {
   console.log("send message");
-//   twilio.messages
-//     .create({
-//       body: sentBody,
-//       from: "+19203358585",
-//       to: `+1${toNum}`
-//     })
-//     .then(function() {
-//       models.Message.update(
-//         { sent: true },
-//         {
-//           where: {
-//             id: messageId
-//           }
-//         }
-//       ).then(function() {
-//         console.log("Updated Messages to sent");
-//       });
-//     })
-//     .done();
+  twilio.messages
+    .create({
+      body: sentBody,
+      from: "+19203358585",
+      to: `+1${toNum}`
+    })
+    .then(function() {
+      models.Message.update(
+        { sent: true },
+        {
+          where: {
+            id: messageId
+          }
+        }
+      ).then(function() {
+        console.log("Updated Messages to sent");
+      });
+    })
+    .done();
 };
 
 schedule.scheduleJob("15 * * * * *", function() {
