@@ -1,11 +1,36 @@
-<div class="jumbotron">
+<!-- Navbar -->
+<nav class="navbar navbar-default">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>                        
+      </button>
+      <a class="navbar-brand" href="#">SAVE the Date!</a>
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="/signin">Sign In</a></li>
+        {{!-- <li><a href="#">Messages</a></li> --}}
+        <li><a href="/signup">Sign Up</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<div class="jumbotron bg-2 text-center">
     <h1>Sign In</h1>
 </div>
 
-<form id="signin" name="signin" method="post" action="signin">
+<form id="signin" name="signin" method="post" action="signin" class="text-center">
     <label for="email">Email Address</label>
     <input class="text" name="email" type="text" />
-    <label for="password">Password</label>
+    <br>
+    <br>
+    <label for="password">Password &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</label>
     <input name="password" type="password" />
+    <br>
+    <br>
     <input class="btn" type="submit" value="Sign In" />
 </form>
