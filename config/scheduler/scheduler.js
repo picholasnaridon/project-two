@@ -2,17 +2,16 @@ var schedule = require("node-schedule");
 var twilio = require("./config.js"); // eslint-disable-line no-unused-vars
 var models = require("../../models");
 var moment = require("moment");
-const twilioNum  = process.env.TWILIO_NUM;
 
-var sendMessage = function(sentBody, toNum, messageId) {
+var sendMessage = function (sentBody, toNum, messageId) {
   console.log("send message");
   twilio.messages.create(
     {
       body: sentBody,
-      from: twilioNum,
+      from: process.env.TWILIO_NUM,
       to: `+1${toNum}`
     },
-    function(err, message) {
+    function (err, message) {
       if (err) {
         console.log("err sending message", err);
       } else {
@@ -23,7 +22,7 @@ var sendMessage = function(sentBody, toNum, messageId) {
               id: messageId
             }
           }
-        ).then(function() {
+        ).then(function () {
           console.log("Updated Messages to sent");
         });
       }
@@ -31,7 +30,7 @@ var sendMessage = function(sentBody, toNum, messageId) {
   );
 };
 
-schedule.scheduleJob("15 * * * * *", function() {
+schedule.scheduleJob("15 * * * * *", function () {
   var currentUnix = moment().unix();
   console.log(currentUnix);
   models.Message.findAll({
@@ -39,7 +38,7 @@ schedule.scheduleJob("15 * * * * *", function() {
       sent: false
     },
     include: [{ model: models.User }]
-  }).then(function(messages) {
+  }).then(function (messages) {
     return messages.forEach(message => {
       console.log(message.unixTime());
       if (currentUnix - message.unixTime() >= 60) {
