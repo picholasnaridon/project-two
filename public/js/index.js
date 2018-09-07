@@ -117,7 +117,7 @@ var refreshMessages = function() {
 
         var $delButton = $("<button>")
           .addClass("btn btn-danger float-right delete")
-          .text("ｘ");
+          .text("Delete");
 
         var $updButton = $("<button>")
           .addClass("btn btn-success mr-2 float-right update")
