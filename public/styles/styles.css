@@ -33,6 +33,13 @@ p {
   padding-top: 70px;
   padding-bottom: 70px;
 }
+
+.container-fluid-2 {
+  border-radius: 10px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
 .navbar {
   padding-top: 15px;
   padding-bottom: 15px;
@@ -62,6 +69,7 @@ p {
 
 .list-group{
   border-radius: 10px;
+  margin: 0 20px;
 
 }
 
@@ -85,4 +93,17 @@ p {
 
 #user-heading {
   color: lightgray;
+}
+
+.delete{
+  float: right;
+}
+
+.update{
+  float: right;
+  margin-right: 10px;
+}
+
+#messages-heading {
+  margin-left: 30px;
 }

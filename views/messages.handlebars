@@ -35,7 +35,9 @@
                     </div>
                     <button type="submit" class="btn btn-primary" id="startSubmit">Submit</button>
                 </form>
-                <h3>Your Current Messages:</h3>
+                <br>
+            <div class="container-fluid-2 bg-1">
+                <h3 id="messages-heading">Your Current Messages:</h3>
                 <ul id="message-list" class="list-group">
                     {{#each messages}}
                     <li data-id="{{this.id}}" class="list-group-item">
@@ -43,6 +45,7 @@
                     </li>
                     {{/each}}
                 </ul>
+                </div>
             </div>
             <div class="modal" id="updateDiv">
                 <div class="modal-dialog">
