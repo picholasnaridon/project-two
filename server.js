@@ -39,7 +39,7 @@ app.set("view engine", "handlebars");
 app.set("views", "./views");
 
 // Routes
-require("./routes/authRoutes.js")(app, passport);
+require("./routes/AuthRoutes.js")(app, passport);
 require("./routes/apiRoutes")(app, passport);
 require("./routes/htmlRoutes")(app, passport);
 
@@ -52,8 +52,8 @@ if (process.env.NODE_ENV === "test") {
 }
 
 // Starting the server, syncing our models ------------------------------------/
-db.sequelize.sync(syncOptions).then(function() {
-  app.listen(PORT, function() {
+db.sequelize.sync(syncOptions).then(function () {
+  app.listen(PORT, function () {
     console.log(
       "==> 🌎  Listening on port %s. Visit http://localhost:%s/ in your browser.",
       PORT,
