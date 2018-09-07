@@ -65,7 +65,7 @@ var handleFormSubmit = function(event) {
   if ($messageBody.val().trim() != "") {
     var newMessageBody = $messageBody.val().trim();
   } else {
-    alert("Please enter a message to be sent");
+    alertify.alert("Please enter a message to be sent").set('frameless', true);
   }
   var newSendTime = $("#sendTime").val();
   var message = {
@@ -74,7 +74,7 @@ var handleFormSubmit = function(event) {
   };
 
   if (!(message.body && message.sendTime)) {
-    alert("You must enter an example text and description!");
+    alertify.alert("You must enter a message and valid time!").set('frameless', true);
     return;
   }
 
