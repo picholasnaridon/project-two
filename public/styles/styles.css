@@ -7,10 +7,14 @@ body {
   line-height: 1.8;
   color: black;
 }
-p {font-size: 16px;}
+p {
+  font-size: 16px;
+}
+
 .margin {margin-bottom: 45px;}
+
 .bg-1 { 
-  background-color: #1abc9c; /* Green */
+  background-color: #425b91; /* lighter blue */
   color: #ffffff;
 }
 .bg-2 { 
@@ -45,4 +49,40 @@ p {font-size: 16px;}
 .profile-img{
 
   height: 500px;
+}
+
+.message-history{
+  background-color:  #5a7eca;
+  margin: 10px 0;
+  padding: 5px;
+  padding-left: 10px;
+  border-radius: 10px;
+
+}
+
+.list-group{
+  border-radius: 10px;
+
+}
+
+#user-info-list {
+  filter: drop-shadow(10px 10px 4px #00305c);
+  border-radius: 10px;
+}
+
+#history-list{
+  margin-bottom: 10%;
+  filter: drop-shadow(10px 10px 4px #00305c);
+}
+
+#user-info{
+  color: black;
+}
+
+#profilepic-update {
+  color: white;
+}
+
+#user-heading {
+  color: lightgray;
 }

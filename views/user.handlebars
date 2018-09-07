@@ -18,33 +18,36 @@
         </div>
     </div>
     </nav>
-    <div class="container-fluid">
+    <div class="container-fluid bg-1">
         <div class="row">
-            <div class="col-sm-10 col-sm-offset-1">
-                    <img class="img" src={{user.profilepic}} alt="Card image cap">
+            <div id="user-info" class="col-sm-10 col-sm-offset-1">
+                    <img class="img" src={{user.profilepic}}>
                     <div class="body">
-                        <h2 class="title">{{user.firstname}} {{user.lastname}}</h5>
+                        <h1 id="user-heading" class="title">{{user.firstname}} {{user.lastname}}</h1>
                     </div>
                     <div class="body">
                         <a href="#" id="profilepic-update" class="card-link">Add/Update Profile Picture</a>
                     </div>
-                    <ul class="list-group list-group-flush">
-                        <li id="email" class="list-group-item">Email: {{user.email}}<p class="text-danger">click to edit</p></li>
-                        <li id="phone" class="list-group-item">Phone: {{user.phone}}<p class="text-danger">click to edit</p></li>
-                        <li class="list-group-item">Member since: {{user.createdAt}}</li>
-                    </ul>
-                </div><!--card end-->
+                    <div id="user-info-list">
+                        <ul class="list-group list-group-flush">
+                            <li id="email" class="list-group-item">Email: {{user.email}}<p class="text-danger">click to edit</p></li>
+                            <li id="phone" class="list-group-item">Phone: {{user.phone}}<p class="text-danger">click to edit</p></li>
+                            <li class="list-group-item">Member since: {{user.createdAt}}</li>
+                        </ul>
+                    </div>
             </div><!--col end-->
         </div><!--row end-->
+        
+
     <div class="row">
-        <div class="col-sm-10 col-sm-offset-2">
+        <div class="col-sm-6 col-sm-offset-2">
         <h2>Message History</h2>
             <div id="history-list">   
 
                 {{#each user.Messages}}
-                    <div id="message-history" class="">
-                        <h5>{{this.body}}<h5>
-                        <h5>sent on: {{this.sendTime}}</h5>
+                    <div class="message-history">
+                        <h3>{{this.body}}<h3>
+                        <h3>sent on: {{this.sendTime}}</h3>
                         <div id="resend-btn" class="btn btn-warning resend" data-id={{this.id}}>Resend</div>
                     </div>
                 {{/each }}
@@ -52,68 +55,70 @@
             </div>
         </div>
     </div>
+
+    </div><!--container end-->
             
-            <div class="modal" id="resendDiv">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h2 class="modal-title"><i class="fas fa-exclamation"></i>Resend you Message!</h2>
-                            <div id="modal-close" class="btn btn-danger">X</div>
-                        </div>
-                                <!--End modal header-->
-                        <div class="modal-body">
-                            <h5>Enter a new send time below</h5>
-                            <input id="sendTime" name="sendTime">
-                            <button type="submit" id="resend-submit" class="btn btn-primary">Resend</button>
-                        </div>
-                                <!--End modal body-->
-                    </div>
-                            <!--End modal content-->
+    <div class="modal" id="resendDiv">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 class="modal-title"><i class="fas fa-exclamation"></i>Resend you Message!</h2>
+                    <div id="modal-close" class="btn btn-danger">X</div>
                 </div>
-                        <!--End modal-dialog-->
-            </div>
-
-            <div class="modal" id="profilepicDiv">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h2 class="modal-title"><i class="fas fa-exclamation"></i>Resend you Message!</h2>
-                            <div id="modal-close-pic" class="btn btn-danger">X</div>
-                        </div>
                                 <!--End modal header-->
-                        <div class="modal-body">
-                            <h5>Enter an image url here</h5>
-                            <input id="profilepic-input" name="profilepic" placeholder="https://i.imgur.com/example.jpg">
-                            <button type="submit" id="profilepic-submit" class="btn btn-primary">Submit</button>
-                        </div>
-                                <!--End modal body-->
-                    </div>
-                            <!--End modal content-->
+                <div class="modal-body">
+                    <h3>Enter a new send time below</h3>
+                    <input id="sendTime" name="sendTime">
+                    <button type="submit" id="resend-submit" class="btn btn-primary">Resend</button>
                 </div>
-                        <!--End modal-dialog-->
+                                <!--End modal body-->
             </div>
+                            <!--End modal content-->
+        </div>
+                        <!--End modal-dialog-->
+    </div>
 
-            <div class="modal" id="profileinfoDiv">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h2 class="modal-title"><i class="fas fa-exclamation"></i>Update Your Information</h2>
-                            <div id="modal-close-info" class="btn btn-danger">X</div>
-                        </div>
+    <div class="modal" id="profilepicDiv">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 class="modal-title"><i class="fas fa-exclamation"></i>Resend you Message!</h2>
+                    <div id="modal-close-pic" class="btn btn-danger">X</div>
+                </div>
                                 <!--End modal header-->
-                        <div class="modal-body">
-                            <h5>Enter new email/phone number here</h5>
-                            <input id="profileinfo-input" name="profileinfo">
-                            <button type="submit" id="profileinfo-submit" class="btn btn-primary">Submit</button>
-                        </div>
-                                <!--End modal body-->
-                    </div>
-                            <!--End modal content-->
+                <div class="modal-body">
+                    <h3>Enter an image url here</h3>
+                    <input id="profilepic-input" name="profilepic" placeholder="https://i.imgur.com/example.jpg">
+                    <button type="submit" id="profilepic-submit" class="btn btn-primary">Submit</button>
                 </div>
-                        <!--End modal-dialog-->
+                                <!--End modal body-->
             </div>
+                            <!--End modal content-->
+        </div>
+                        <!--End modal-dialog-->
+    </div>
 
-    </div><!--body container end-->
+    <div class="modal" id="profileinfoDiv">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 class="modal-title"><i class="fas fa-exclamation"></i>Update Your Information</h2>
+                    <div id="modal-close-info" class="btn btn-danger">X</div>
+                </div>
+                                <!--End modal header-->
+                <div class="modal-body">
+                    <h3>Enter new email/phone number here</h3>
+                    <input id="profileinfo-input" name="profileinfo">
+                    <button type="submit" id="profileinfo-submit" class="btn btn-primary">Submit</button>
+                </div>
+                                <!--End modal body-->
+            </div>
+                            <!--End modal content-->
+        </div>
+                        <!--End modal-dialog-->
+    </div>
+
+    
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
