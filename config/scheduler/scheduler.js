@@ -2,14 +2,13 @@ var schedule = require("node-schedule");
 var twilio = require("./config.js"); // eslint-disable-line no-unused-vars
 var models = require("../../models");
 var moment = require("moment");
-const twilioNum  = process.env.TWILIO_NUM;
 
 var sendMessage = function(sentBody, toNum, messageId) {
   console.log("send message");
   twilio.messages.create(
     {
       body: sentBody,
-      from: twilioNum,
+      from: process.env.TWILIO_NUM,
       to: `+1${toNum}`
     },
     function(err, message) {

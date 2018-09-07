@@ -39,13 +39,13 @@ app.set("view engine", "handlebars");
 app.set("views", "./views");
 
 // Routes
-require("./routes/authRoutes.js")(app, passport);
+require("./routes/AuthRoutes.js")(app, passport);
 require("./routes/apiRoutes")(app, passport);
 require("./routes/htmlRoutes")(app, passport);
 
 var syncOptions = { force: false };
 
-// If running a test, set syncOptions.force to true
+// If running a test, set syncOptions.force to true!
 // clearing the `testdb`
 if (process.env.NODE_ENV === "test") {
   syncOptions.force = true;
