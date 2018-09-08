@@ -5,6 +5,7 @@ var moment = require("moment");
 
 var sendMessage = function(sentBody, toNum, messageId) {
   console.log("send message");
+  console.log(toNum);
   twilio.messages.create(
     {
       body: sentBody,
@@ -30,7 +31,7 @@ var sendMessage = function(sentBody, toNum, messageId) {
   );
 };
 
-schedule.scheduleJob("15 * * * * *", function() {
+schedule.scheduleJob("00 * * * * *", function() {
   var currentUnix = moment().unix();
   console.log(currentUnix);
   models.Message.findAll({
@@ -41,7 +42,7 @@ schedule.scheduleJob("15 * * * * *", function() {
   }).then(function(messages) {
     return messages.forEach(message => {
       console.log(message.unixTime());
-      if (currentUnix - message.unixTime() >= 60) {
+      if (message.unixTime() <= currentUnix) {
         console.log("message Sent");
         sendMessage(message.body, message.User.phone, message.id);
       }
