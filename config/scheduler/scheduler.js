@@ -42,6 +42,7 @@ schedule.scheduleJob("00 * * * * *", function() {
   }).then(function(messages) {
     return messages.forEach(message => {
       console.log(message.unixTime());
+      console.log()
       if (message.unixTime() <= currentUnix) {
         console.log("message Sent");
         sendMessage(message.body, message.User.phone, message.id);
